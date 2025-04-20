@@ -1,10 +1,13 @@
+provider "aws" {
+  region = "us-east-1"
+}
 resource "aws_synthetics_canary" "canary_api_calls" {
   name                 = var.name
   artifact_s3_location = "s3://${data.aws_s3_bucket.s3_canaries-reports.id}/"
   execution_role_arn   = data.aws_iam_role.role.arn
   runtime_version      = var.runtime_version
   handler              = "canary.handler"
-  zip_file             = filebase64("${path.module}/lambda_canary.zip")
+  zip_file             = "${path.module}/lambda_canary.zip"
   start_canary         = true
 
   success_retention_period = 2

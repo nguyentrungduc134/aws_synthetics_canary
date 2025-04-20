@@ -1,19 +1,10 @@
-data "archive_file" "lambda_canary_zip" {
-  type        = "zip"
-  output_path = "${path.module}/lambda_canary.zip"  # Optional, to keep a local copy or use an S3 path
-  source {
-    content  = file("${path.module}/canary.js")  # Directly referencing the local canary.js file
-    filename = "nodejs/node_modules/canary.js"
-  }
-}
-
 resource "aws_synthetics_canary" "canary_api_calls" {
   name                 = var.name
   artifact_s3_location = "s3://${data.aws_s3_bucket.s3_canaries-reports.id}/"
   execution_role_arn   = data.aws_iam_role.role.arn
   runtime_version      = var.runtime_version
   handler              = "canary.handler"
-  zip_file             = data.archive_file.lambda_canary_zip.output_path  # Reference the zip directly
+  zip_file             = filebase64("${path.module}/lambda_canary.zip")
   start_canary         = true
 
   success_retention_period = 2
@@ -31,7 +22,6 @@ resource "aws_synthetics_canary" "canary_api_calls" {
       API_HOSTNAME    = var.api_hostname
       API_PATH        = var.api_path
       TAKE_SCREENSHOT = var.take_screenshot
-      REGION          = data.aws_region.current.name
     }    
   }
 
@@ -43,10 +33,6 @@ resource "aws_synthetics_canary" "canary_api_calls" {
   tags = {
     Name = "canary"
   }
-
-  depends_on = [
-    data.archive_file.lambda_canary_zip,
-  ]
 
 }
 

@@ -27,6 +27,12 @@ resource "aws_synthetics_canary" "canary_api_calls" {
   run_config {
     timeout_in_seconds = 15
     active_tracing     = false
+    environment_variables = {
+      API_HOSTNAME    = var.api_hostname
+      API_PATH        = var.api_path
+      TAKE_SCREENSHOT = var.take_screenshot
+      REGION          = data.aws_region.current.name
+    }    
   }
 
   vpc_config {

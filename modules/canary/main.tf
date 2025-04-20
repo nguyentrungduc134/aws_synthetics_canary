@@ -31,7 +31,6 @@ resource "aws_synthetics_canary" "canary_api_calls" {
       API_HOSTNAME    = var.api_hostname
       API_PATH        = var.api_path
       TAKE_SCREENSHOT = var.take_screenshot
-      REGION          = data.aws_region.current.name
     }    
   }
 

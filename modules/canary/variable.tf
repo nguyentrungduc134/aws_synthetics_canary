@@ -38,15 +38,15 @@ variable "role" {
     description = "Role to execute the canaries"
 }
 
-variable "subnet_ids" {
-    type = list(string)
-    description = "Subnet IDs in which to execute the canary"
-}
+#variable "subnet_ids" {
+#    type = list(string)
+#    description = "Subnet IDs in which to execute the canary"
+#}
 
-variable "security_group_id" {
-    type = string
-    description = "Security Groups used by the canary"
-}
+#variable "security_group_id" {
+#    type = string
+#    description = "Security Groups used by the canary"
+#}
 
 variable "alert_sns_topic" {
     type = string

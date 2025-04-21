@@ -1,9 +1,9 @@
 name   = "my-canary"
 runtime_version = "syn-nodejs-puppeteer-7.0"
 take_screenshot = false
-api_hostname = "mydomain.internal"
-api_path = "/path?param=value"
+api_hostname = "https://httpbin.org"
+api_path = "/get"
 vpc_id = "vpc-01b702edb5051d41e"
-subnet_ids = ["subnet-08c45ab4395b087cd"]
+subnet_ids = ["subnet-03512aa40b704e5a9"]
 frequency = 5
-alert_sns_topic = "arn:aws:sns:eu-central-1:111111111111:yyyyy"
+alert_sns_topic = "arn:aws:sns:us-east-1:111111111111:yyyyy"
